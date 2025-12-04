@@ -26,6 +26,7 @@ public class UserController {
     public ResponseEntity<?> parbauditUser(@RequestBody User user) {
         Optional<User> irUsers = userService.parbauditUser(user);
         if (irUsers.isPresent()) {
+            System.out.println(irUsers.get());
             return ResponseEntity.ok(irUsers.get());
         } else {
             return ResponseEntity.status(401).body("Wrong username or pw");
@@ -37,5 +38,15 @@ public class UserController {
         User jaunsUser = userService.createUser(user);
         return new ResponseEntity<User>(jaunsUser, HttpStatus.OK);
     }
+
+    // @PostMapping("/home/pievienotUser")
+    // public UserDTO pievienotUseri(@RequestBody UserDTO user) {
+    // return userService.saglabatUseriUzEvent(user);
+    // }
+
+    // public ResponseEntity<User> pievienotUseriEventam(@PathVariable Long id) {
+    // User jaunsDalibnieks = userService.pievienotDalibnieku(id);
+    // return new ResponseEntity<>(jaunsDalibnieks, HttpStatus.OK);
+    // }
 
 }

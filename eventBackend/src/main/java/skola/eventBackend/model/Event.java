@@ -1,5 +1,8 @@
 package skola.eventBackend.model;
 
+import java.util.List;
+
+import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -19,6 +22,8 @@ public class Event {
     String datums;
     String laiks;
     String vieta;
+    @ElementCollection
+    List<Long> pasreizejaisDalibniekuSkaits;
     int maxDalibnieki;
     Long createdBy;
 }

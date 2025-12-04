@@ -1,6 +1,4 @@
 package skola.eventBackend.model;
 
-public class UserDto {
-    Long id;
-    String name;
+public record UserDTO(Long id, String name) {
 }

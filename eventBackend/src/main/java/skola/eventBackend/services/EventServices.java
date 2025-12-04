@@ -27,4 +27,21 @@ public class EventServices {
         eventRepository.deleteById(id);
     }
 
+    public Event pievienotUseri(Long id, Event istaisEvent) {
+        Event meklejuEventu = eventRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Nav events ar šo id"));
+        meklejuEventu.setPasreizejaisDalibniekuSkaits(istaisEvent.getPasreizejaisDalibniekuSkaits());
+        System.out.println(meklejuEventu);
+        System.out.println(istaisEvent);
+        return eventRepository.save(meklejuEventu);
+    }
+
+    public Event izdzestUseriNoEvent(Long eventid, Long userid) {
+        Event labotsEvent = eventRepository.findById(eventid)
+                .orElseThrow(() -> new RuntimeException("Nav events ar šo id"));
+        System.out.println(labotsEvent);
+        labotsEvent.getPasreizejaisDalibniekuSkaits().remove(userid);
+        System.out.println(labotsEvent);
+        return eventRepository.save(labotsEvent);
+    }
 }

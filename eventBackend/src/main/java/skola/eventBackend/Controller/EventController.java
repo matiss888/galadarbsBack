@@ -16,6 +16,7 @@ import skola.eventBackend.model.Event;
 import skola.eventBackend.services.EventServices;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
 
 @RestController
 @RequestMapping
@@ -32,16 +33,28 @@ public class EventController {
         return new ResponseEntity<Event>(jaunsEvent, HttpStatus.OK);
     }
 
-    @GetMapping("/home")
+    @GetMapping("/home/visieventi")
     public ResponseEntity<List<Event>> dabutVisusEventus() {
         List<Event> allEvents = eventServices.dabutVisusEventus();
-        return new ResponseEntity<>(allEvents, HttpStatus.OK);
+        return new ResponseEntity<List<Event>>(allEvents, HttpStatus.OK);
     }
 
-    @DeleteMapping("/home/{id}")
+    @DeleteMapping("/home/event/{id}")
     public ResponseEntity<?> izdzestEventu(@PathVariable Long id) {
         eventServices.izdzestEventu(id);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PutMapping("/home/{id}")
+    public ResponseEntity<Event> pievienotUseri(@PathVariable Long id, @RequestBody Event event) {
+        Event apdeitotsEvent = eventServices.pievienotUseri(id, event);
+        return new ResponseEntity<Event>(apdeitotsEvent, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/home/event/{eventid}/{id}")
+    public ResponseEntity<?> izdzestUseriNoEvent(@PathVariable Long eventid, @PathVariable Long id) {
+        Event labotsEvents = eventServices.izdzestUseriNoEvent(eventid, id);
+        return new ResponseEntity<Event>(labotsEvents, HttpStatus.OK);
     }
 
 }

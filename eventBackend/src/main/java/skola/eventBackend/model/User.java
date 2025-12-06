@@ -15,5 +15,5 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
     String name;
-    int password;
+    String password;
 }

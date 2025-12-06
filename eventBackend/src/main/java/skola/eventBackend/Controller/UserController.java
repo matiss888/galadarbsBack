@@ -29,7 +29,7 @@ public class UserController {
             System.out.println(irUsers.get());
             return ResponseEntity.ok(irUsers.get());
         } else {
-            return ResponseEntity.status(401).body("Wrong username or pw");
+            return ResponseEntity.status(401).body("Nepareizs username vai passwords");
         }
     }
 

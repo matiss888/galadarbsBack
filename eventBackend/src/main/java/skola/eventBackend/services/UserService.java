@@ -3,10 +3,12 @@ package skola.eventBackend.services;
 import java.util.List;
 import java.util.Optional;
 
-// import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import lombok.AllArgsConstructor;
+import skola.eventBackend.DTO.LoginRequestDTO;
+import skola.eventBackend.DTO.UserRequestDTO;
+import skola.eventBackend.DTO.UserResponseDTO;
 import skola.eventBackend.model.User;
 import skola.eventBackend.repository.UserRepository;
 
@@ -21,24 +23,15 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    public User createUser(User user) {
-        // int jaunaParole = Integer.valueOf(user.getPassword()).hashCode();
-        // user.setPassword(jaunaParole);
-        // System.out.println(jaunaParole);
-        return userRepository.save(user);
+    public UserResponseDTO createUser(UserRequestDTO userReq) {
+        User user = new User();
+        user.setName(userReq.getName());
+        user.setPassword(userReq.getPassword());
+        User savedInDb = userRepository.save(user);
+        return new UserResponseDTO(savedInDb.getId(), savedInDb.getName());
     }
 
-    public Optional<User> parbauditUser(User user) {
-        return userRepository.findByNameAndPassword(user.getName(), user.getPassword());
+    public Optional<User> parbauditUser(LoginRequestDTO dto) {
+        return userRepository.findByNameAndPassword(dto.getName(), dto.getPassword());
     }
-
-    // public UserDTO sutitUseriUzEvent(Long id) {
-    // return
-    // }
-    // public UserDto createUser(UserDto dto) {
-    // User entity = toEntity(dto);
-    // User saved = userRepository.save(entity);
-    // return toDTO(saved);
-    // }
-
 }

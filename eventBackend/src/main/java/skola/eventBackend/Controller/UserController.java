@@ -2,8 +2,12 @@ package skola.eventBackend.Controller;
 
 import org.springframework.web.bind.annotation.RestController;
 
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
+import skola.eventBackend.DTO.LoginRequestDTO;
+import skola.eventBackend.DTO.UserRequestDTO;
 import skola.eventBackend.model.User;
+import skola.eventBackend.DTO.UserResponseDTO;
 import skola.eventBackend.services.UserService;
 
 import java.util.Optional;
@@ -23,30 +27,20 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping("/login")
-    public ResponseEntity<?> parbauditUser(@RequestBody User user) {
-        Optional<User> irUsers = userService.parbauditUser(user);
+    public ResponseEntity<?> parbauditUser(
+            @Valid @RequestBody LoginRequestDTO dto) {
+        Optional<User> irUsers = userService.parbauditUser(dto);
         if (irUsers.isPresent()) {
-            System.out.println(irUsers.get());
-            return ResponseEntity.ok(irUsers.get());
+            User user = irUsers.get();
+            skola.eventBackend.DTO.UserResponseDTO response = new UserResponseDTO(user.getId(), user.getName());
+            return ResponseEntity.ok(response);
         } else {
-            return ResponseEntity.status(401).body("Nepareizs username vai passwords");
+            return ResponseEntity.status(401).body("Incorrect username or passwords");
         }
     }
 
     @PostMapping("/user")
-    public ResponseEntity<User> postUser(@RequestBody User user) {
-        User jaunsUser = userService.createUser(user);
-        return new ResponseEntity<User>(jaunsUser, HttpStatus.OK);
+    public ResponseEntity<UserResponseDTO> postUser(@RequestBody @Valid UserRequestDTO userReq) {
+        return new ResponseEntity<UserResponseDTO>(userService.createUser(userReq), HttpStatus.OK);
     }
-
-    // @PostMapping("/home/pievienotUser")
-    // public UserDTO pievienotUseri(@RequestBody UserDTO user) {
-    // return userService.saglabatUseriUzEvent(user);
-    // }
-
-    // public ResponseEntity<User> pievienotUseriEventam(@PathVariable Long id) {
-    // User jaunsDalibnieks = userService.pievienotDalibnieku(id);
-    // return new ResponseEntity<>(jaunsDalibnieks, HttpStatus.OK);
-    // }
-
 }

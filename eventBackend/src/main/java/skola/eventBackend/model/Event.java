@@ -1,5 +1,6 @@
 package skola.eventBackend.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.ElementCollection;
@@ -23,7 +24,7 @@ public class Event {
     String laiks;
     String vieta;
     @ElementCollection
-    List<Long> pasreizejaisDalibniekuSkaits;
+    List<Long> pasreizejaisDalibniekuSkaits = new ArrayList<>();
     int maxDalibnieki;
     Long createdBy;
 }

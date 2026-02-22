@@ -1,6 +1,5 @@
 package skola.eventBackend.DTO;
 
-import jakarta.validation.constraints.FutureOrPresent;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -17,7 +16,6 @@ public class EventRequestDTO {
     String apraksts;
 
     @NotNull(message = "Date is necessary")
-    @FutureOrPresent(message = "Event can't be hosted in past")
     String datums;
 
     @NotNull(message = "Time of the event is necessary")
@@ -28,5 +26,7 @@ public class EventRequestDTO {
 
     @Min(value = 1, message = "Event has to have atleast one participant")
     int maxDalibnieki;
+
+    private Long createdBy;
 
 }

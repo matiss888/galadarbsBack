@@ -1,5 +1,7 @@
 package skola.eventBackend.DTO;
 
+import java.util.List;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -23,6 +25,8 @@ public class EventResponseDTO {
 
     private int maxDalibnieki;
 
-    private int currentParticipants;
+    private List<Long> pasreizejaisDalibniekuSkaits;
+
+    private Long createdBy;
 
 }

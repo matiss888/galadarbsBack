@@ -32,6 +32,7 @@ build/
 ### VS Code ###
 .vscode/
 application.properties
+application.yml
 
 # Ignore zip files
 *.zip
